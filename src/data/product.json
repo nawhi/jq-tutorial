@@ -1,5 +1,8 @@
 {
   "name": "Table",
-  "price": 270.00
+  "price": {
+    "amount": 270.00,
+    "currency": "GBP"
+  }
 }
 

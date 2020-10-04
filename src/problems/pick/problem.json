@@ -10,6 +10,11 @@
     "solution": ".price"
   },
   {
+    "prompt": "Select the item's currency",
+    "dataset": "product",
+    "solution": ".price.currency"
+  },
+  {
     "prompt": "Select all items from the list",
     "dataset": "products",
     "solution": ".[]"
