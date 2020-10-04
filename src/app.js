@@ -6,12 +6,16 @@ const fs = require('fs'),
   _ = require('lodash'),
   async = require('async');
 
-export function runApp() {
+export function runApp(
+  lessonToRun = process.argv[process.argv.length - 1],
+  stdout = process.stdout,
+  stdin = process.stdin,
+) {
   function runJq(datafile, str, callback) {
-    exec('jq \'' + str + '\' ' + datafile, function(
+    exec("jq '" + str + "' " + datafile, function (
       err,
       stdout,
-      stderr,
+      stderr
     ) {
       const errorMessage = err && err.message;
       callback(errorMessage || stderr, stdout);
@@ -20,61 +24,61 @@ export function runApp() {
 
   function clearscreen() {
     // ref: http://stackoverflow.com/questions/8813142
-    process.stdout.write('\u001B[2J\u001B[0;0f');
+    stdout.write('\u001B[2J\u001B[0;0f');
   }
 
   function divider() {
-    process.stdout.write(
-      '\n\n--------------------------------\n\n',
+    stdout.write(
+      '\n\n--------------------------------\n\n'
     );
   }
 
   function runOne(problem, callback) {
     const datafile = path.resolve(
       __dirname,
-      'data/' + problem.dataset + '.json',
+      'data/' + problem.dataset + '.json'
     );
     const solution = problem.solution;
 
     const dataset = fs.readFileSync(datafile);
 
     const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
+      input: stdin,
+      output: stdout,
     });
 
-    const writeAndPrompt = function(what) {
-      process.stdout.write(what + '\n');
+    const writeAndPrompt = function (what) {
+      stdout.write(what + '\n');
       rl.prompt();
     };
 
-    const helpMessage = function() {
+    const helpMessage = function () {
       writeAndPrompt(
         [
           'Enter your answer or one of the following:',
           '  * help?   show this help message',
           '  * prompt? show the original challenge prompt',
           '  * data?   show the challenge data set',
-        ].join('\n'),
+        ].join('\n')
       );
     };
 
-    const problemPrompt = function() {
+    const problemPrompt = function () {
       writeAndPrompt(
         [
           'Given: '.bold.white +
-          '   \'' +
-          problem.dataset +
-          '\' (type "data?" to view)',
+            "   '" +
+            problem.dataset +
+            '\' (type "data?" to view)',
           'Challenge: '.bold.white + problem.prompt + '\n',
-        ].join('\n'),
+        ].join('\n')
       );
     };
 
     divider();
     problemPrompt();
 
-    rl.on('line', function(answer) {
+    rl.on('line', function (answer) {
       switch (answer) {
         case '?':
         case 'help?':
@@ -90,11 +94,15 @@ export function runApp() {
           async.parallel(
             {
               actual: _.partial(runJq, datafile, answer),
-              expected: _.partial(runJq, datafile, solution),
+              expected: _.partial(
+                runJq,
+                datafile,
+                solution
+              ),
             },
-            function(err, results) {
+            function (err, results) {
               if (err) {
-                process.stderr.write(err.red);
+                stdout.write(err.red);
                 return rl.prompt();
               }
 
@@ -104,18 +112,14 @@ export function runApp() {
                 rl.close();
                 callback(null);
               } else {
-                process.stdout.write('\nExpected:\n');
-                process.stdout.write(
-                  results.expected.green + '\n',
-                );
+                stdout.write('\nExpected:\n');
+                stdout.write(results.expected.green + '\n');
 
-                process.stdout.write('\nYour answer:\n');
-                process.stdout.write(
-                  results.actual.yellow + '\n',
-                );
+                stdout.write('\nYour answer:\n');
+                stdout.write(results.actual.yellow + '\n');
                 rl.prompt();
               }
-            },
+            }
           );
       }
     });
@@ -128,68 +132,67 @@ export function runApp() {
           __dirname,
           'problems',
           problem,
-          'README.md',
+          'README.md'
         ),
         path.resolve(
           __dirname,
           'problems',
           problem,
-          'problem.json',
+          'problem.json'
         ),
       ],
       fs.readFile,
-      function(err, results) {
+      function (err, results) {
         if (err) throw err;
         const problems = JSON.parse(results[1]);
 
         clearscreen();
 
         // Print README
-        process.stdout.write(results[0]);
-        process.stdout.write(
-          'type "data?" to see dataset or "help?" for more options',
+        stdout.write(results[0]);
+        stdout.write(
+          'type "data?" to see dataset or "help?" for more options'
         );
 
         // do problem
         async.mapSeries(problems, runOne, callback);
-      },
+      }
     );
   }
 
-  fs.readFile(path.resolve(__dirname, 'menu.json'), function(
-    err,
-    result,
-  ) {
-    const lesson = process.argv[process.argv.length - 1],
-      problems = JSON.parse(result);
+  fs.readFile(
+    path.resolve(__dirname, 'menu.json'),
+    function (err, result) {
+      const lesson = lessonToRun,
+        problems = JSON.parse(result);
 
-    const success = function(lesson) {
-      process.stdout.write(
-        [
-          '\u2605'.yellow +
-          ' "' +
-          lesson +
-          '" completed with a gold star!',
-        ].join('\n') + '\n\n',
-      );
-    };
+      const success = function (lesson) {
+        stdout.write(
+          [
+            '\u2605'.yellow +
+              ' "' +
+              lesson +
+              '" completed with a gold star!',
+          ].join('\n') + '\n\n'
+        );
+      };
 
-    const usage = function() {
-      process.stdout.write(
-        ['Run jq-tutorial with one of the following:']
-          .concat(problems)
-          .join('\n  * ') + '\n\n',
-      );
-    };
+      const usage = function () {
+        stdout.write(
+          ['Run jq-tutorial with one of the following:']
+            .concat(problems)
+            .join('\n  * ') + '\n\n'
+        );
+      };
 
-    if (problems.indexOf(lesson) === -1) {
-      usage();
-    } else {
-      show(lesson, function(err) {
-        if (err) throw err;
-        success(lesson);
-      });
+      if (problems.indexOf(lesson) === -1) {
+        usage();
+      } else {
+        show(lesson, function (err) {
+          if (err) throw err;
+          success(lesson);
+        });
+      }
     }
-  });
+  );
 }
-
