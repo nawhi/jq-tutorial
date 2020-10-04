@@ -5,23 +5,45 @@ Pick
 
 `jq` retrieves named properties from objects by using `.` syntax:
 
-    $ echo '{"foo": { "bar": "a value" }}' | jq .foo
+    $ obj='{"foo": { "bar": "a value" }}'
+    
+    $ jq '.foo' <<< '{"foo": { "bar": "a value" }}'
+    {
+      "bar": "a value"
+    }
 
 Nested values are accessible as well:
 
-    $ echo '{"foo": { "bar": "a value" }}' | jq .foo.bar
+    $ jq '.foo.bar' <<< '{"foo": { "bar": "a value" }}' 
+    "a value"
 
 ### Pick elements from an array:
 
 Elements in an array may be extracted by index:
 
-    $ echo '["snap","crackle","pop"]' | jq .[1]
+    $ jq '.[1]' <<< '["snap","crackle","pop"]' 
+    "crackle"
 
 More than one index? No problem!
 
-    $ echo '["snap","crackle","pop"]' | jq .[1, 2]
+    $ jq '.[1, 2]' <<< '["snap","crackle","pop"]'
+    "crackle"
+    "pop"
 
 We can even extract *all* elements at once by omitting the indices:
 
-    $ echo '["snap","crackle","pop"]' | jq .[]
+    $ jq '.[]' <<< '["snap","crackle","pop"]'
+    "snap"
+    "crackle"
+    "pop"
+    
+Notice that this just prints the elements. If valid JSON is needed,
+the extraction can be surrounded with square brackets:
+
+    $ jq '[.[]]' <<< '["snap","crackle","pop"]'
+    [
+      "snap",
+      "crackle",
+      "pop"
+    ]
 
