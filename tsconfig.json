@@ -5,7 +5,7 @@
     "sourceMap": true,
     "strict": true,
     "allowJs": true,
-    "outFile": "bin/jq-tutorial"
+    "noEmit": true
   },
   "exclude": [
     "node_modules"
