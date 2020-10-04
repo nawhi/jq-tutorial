@@ -5,7 +5,8 @@ The `select` filter helps separate the wheat from the chaff. The
 rule is simple: when an item passes, `select` returns it; when it
 fails, no output comes back.
 
-It is useful when applied to arrays:
+Unlike `map`, it  because it accepts a list of JSON objects as
+input, rather than  
 
     $ products='[
        {"name": "teapot", "price": 15}, 

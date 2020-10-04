@@ -1,24 +1,16 @@
-Pick
+Arrays
 ========================================
 
-### Pick fields from an object
+Declaring an array has analogous syntax to declaring an object. 
+For instance, to construct a single-element array with the contents of `currency`:
 
-`jq` retrieves named properties from objects by using `.` syntax:
-
-    $ obj='{"foo": { "bar": "a value" }}'
-    
-    $ jq '.foo' <<< '{"foo": { "bar": "a value" }}'
-    {
-      "bar": "a value"
-    }
-
-Nested values are accessible as well:
-
-    $ jq '.foo.bar' <<< '{"foo": { "bar": "a value" }}' 
-    "a value"
-
-### Pick elements from an array:
-
+     $ price='{ "amount": 123, "currency": "ZWD" }'
+     
+     $ jq '[.currency]' <<<$price
+     [
+       "ZWD"
+     ]
+     
 Elements in an array may be extracted by index:
 
     $ jq '.[1]' <<< '["snap","crackle","pop"]' 
@@ -46,4 +38,3 @@ the extraction can be surrounded with square brackets:
       "crackle",
       "pop"
     ]
-

@@ -1,23 +1,28 @@
 Constructing objects
 ========================================
 
-`jq` can also be used to transform data. For instance, to construct a
-single-element array with the contents of `currency`:
+`jq` retrieves named properties from JSON objects by using `.` syntax:
 
-     $ price='{ "amount": 123, "currency": "ZWD" }'
-     
-     $ jq '[.currency]' <<<$price
-     [
-       "ZWD"
-     ]
-
-Constructing objects is very similar:
-
-    $ jq '{ value: .amount } <<< $price
+    $ json='{"foo": { "bar": "a value" }}'
+    
+    $ jq '.foo' <<< $json
     {
-      "value": 123
+      "bar": "a value"
     }
 
+Nested values are accessible as well:
+
+    $ jq '.foo.bar' <<< $json
+    "a value"
+
+`jq` can also be used to transform data. For instance, to construct a
+single-element object with the contents of `currency`:
+
+    
+    $ jq '{ myval: .foo.bar } <<< $json
+    {
+      "myval": "a value"
+    }
 
 There's a handy shortcut for carrying a key-value pair to the output
 object: if a key is referenced *without* a value or the `.` selector,
@@ -30,5 +35,6 @@ it will be copied into the output object:
       "name": "Dave",
       "height": 180,
     }
+    
 
 

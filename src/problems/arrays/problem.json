@@ -1,20 +1,5 @@
 [
   {
-    "prompt": "Select the entire item (hint: don't overthink this!):",
-    "dataset": "product",
-    "solution": "."
-  },
-  {
-    "prompt": "Select the item's price:",
-    "dataset": "product",
-    "solution": ".price"
-  },
-  {
-    "prompt": "Select the item's currency",
-    "dataset": "product",
-    "solution": ".price.currency"
-  },
-  {
     "prompt": "Select all items from the list",
     "dataset": "products",
     "solution": ".[]"
@@ -30,4 +15,3 @@
     "solution": ".[0].name"
   }
 ]
-
