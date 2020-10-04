@@ -3,6 +3,7 @@
   "arrays",
   "nesting",
   "mapping",
+  "operators",
   "filtering",
   "output",
   "reduce"

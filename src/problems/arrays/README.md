@@ -22,6 +22,18 @@ More than one index? No problem!
     "crackle"
     "pop"
 
+Python-style slicing is also supported:
+
+    $ jq '.[-1]' <<< '["snap","crackle","pop"]'
+    "pop"
+   
+    $ jq '.[1:]' <<< '["snap","crackle","pop"]'
+    [
+      "crackle",
+      "pop"
+    ]
+
+
 We can even extract *all* elements at once by omitting the indices:
 
     $ jq '.[]' <<< '["snap","crackle","pop"]'

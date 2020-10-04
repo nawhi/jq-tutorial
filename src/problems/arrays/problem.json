@@ -18,5 +18,10 @@
     "prompt": "Select the names of all items, as a JSON array",
     "dataset": "products",
     "solution": "[.[].name]"
+  },
+  {
+    "prompt": "Select the name of the last item",
+    "dataset": "products",
+    "solution": ".[-1].name"
   }
 ]
