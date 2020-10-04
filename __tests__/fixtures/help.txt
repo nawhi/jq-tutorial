@@ -1,0 +1,8 @@
+Run jq-tutorial with one of the following:
+  * pick
+  * objects
+  * mapping
+  * filtering
+  * output
+  * reduce
+
