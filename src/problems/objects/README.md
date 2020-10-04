@@ -2,20 +2,33 @@ Constructing objects
 ========================================
 
 `jq` can also be used to transform data. For instance, to construct a
-single-element array with the contents of `foo`:
+single-element array with the contents of `currency`:
 
-    $ echo '{"foo": { "bar": "a value" }}' \
-      | jq '[.foo]'
+     $ price='{ "amount": 123, "currency": "ZWD" }'
+     
+     $ jq '[.currency]' <<<$price
+     [
+       "ZWD"
+     ]
 
 Constructing objects is very similar:
 
-    $ echo '{"foo": { "bar": "a value" }}' \
-      | jq '{ foz: .foo }'
+    $ jq '{ value: .amount } <<< $price
+    {
+      "value": 123
+    }
+
 
 There's a handy shortcut for carrying a key-value pair to the output
 object: if a key is referenced *without* a value or the `.` selector,
 it will be copied into the output object:
 
-    $ echo '{"foo": { "bar": "a value" }}' \
-      | jq '{ foo, why: "demonstration copy" }'
+    $ dave='{ "name": "Dave", "height": 180, "age": 34 }'
+    
+    $ jq '{ name, height }' <<< $dave
+    {
+      "name": "Dave",
+      "height": 180,
+    }
+
 
