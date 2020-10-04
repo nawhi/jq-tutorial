@@ -160,39 +160,42 @@ export function runApp(
     );
   }
 
-  fs.readFile(
-    path.resolve(__dirname, 'menu.json'),
-    function (err, result) {
-      const lesson = lessonToRun,
-        problems = JSON.parse(result);
+  return new Promise((resolve, reject) => {
+    fs.readFile(
+      path.resolve(__dirname, 'menu.json'),
+      function(err, result) {
+        const lesson = lessonToRun,
+          problems = JSON.parse(result);
 
-      const success = function (lesson) {
-        stdout.write(
-          [
-            '\u2605'.yellow +
+        const success = function(lesson) {
+          stdout.write(
+            [
+              '\u2605'.yellow +
               ' "' +
               lesson +
               '" completed with a gold star!',
-          ].join('\n') + '\n\n'
-        );
-      };
+            ].join('\n') + '\n\n'
+          );
+          resolve();
+        };
 
-      const usage = function () {
-        stdout.write(
-          ['Run jq-tutorial with one of the following:']
-            .concat(problems)
-            .join('\n  * ') + '\n\n'
-        );
-      };
+        const usage = function() {
+          stdout.write(
+            ['Run jq-tutorial with one of the following:']
+              .concat(problems)
+              .join('\n  * ') + '\n\n'
+          );
+        };
 
-      if (problems.indexOf(lesson) === -1) {
-        usage();
-      } else {
-        show(lesson, function (err) {
-          if (err) throw err;
-          success(lesson);
-        });
+        if (problems.indexOf(lesson) === -1) {
+          usage();
+        } else {
+          show(lesson, function(err) {
+            if (err) throw err;
+            success(lesson);
+          });
+        }
       }
-    }
-  );
+    );
+  });
 }
