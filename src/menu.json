@@ -1,6 +1,7 @@
 [
   "objects",
   "arrays",
+  "nesting",
   "mapping",
   "filtering",
   "output",

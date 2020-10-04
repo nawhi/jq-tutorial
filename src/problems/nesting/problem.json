@@ -1,0 +1,17 @@
+[
+  {
+    "prompt": "Select all categories as a JSON array",
+    "dataset": "companies",
+    "solution": "[.[].category]"
+  },
+  {
+    "prompt": "Select all websites in the first category",
+    "dataset": "companies",
+    "solution": ".[0].companies[].website"
+  },
+  {
+    "prompt": "Select the names of all companies as a JSON array",
+    "dataset": "companies",
+    "solution": "[.[].companies[].name]"
+  }
+]
