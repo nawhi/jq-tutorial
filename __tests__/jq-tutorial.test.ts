@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { exec } from 'child_process';
-import * as path from 'path';
 import { getFixture } from './getFixture';
 
 describe('jq-tutorial', () => {
@@ -25,17 +24,8 @@ describe('jq-tutorial', () => {
 });
 
 async function runBinary(argument: string): Promise<{ stdout: string, stderr: string }> {
-  const binaryPath = path.resolve(
-    __dirname,
-    '..',
-    'bin',
-    'jq-tutorial'
-  );
-
-  const pathWithArgs = `${binaryPath} ${argument}`;
-
   return new Promise((resolve, reject) => {
-    exec(pathWithArgs, (err, stdout, stderr) => {
+    exec(`yarn --silent start ${argument}`, (err, stdout, stderr) => {
       if (err) reject(err);
       console.error(stderr);
       resolve({ stdout, stderr });

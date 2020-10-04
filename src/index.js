@@ -6,7 +6,7 @@ const fs = require('fs'),
   _ = require('lodash'),
   async = require('async');
 
-function run(datafile, str, callback) {
+function runJq(datafile, str, callback) {
   exec("jq '" + str + "' " + datafile, function (
     err,
     stdout,
@@ -88,8 +88,8 @@ function runOne(problem, callback) {
       default:
         async.parallel(
           {
-            actual: _.partial(run, datafile, answer),
-            expected: _.partial(run, datafile, solution),
+            actual: _.partial(runJq, datafile, answer),
+            expected: _.partial(runJq, datafile, solution),
           },
           function (err, results) {
             if (err) {
@@ -155,38 +155,43 @@ function show(problem, callback) {
   );
 }
 
-fs.readFile(path.resolve(__dirname, 'menu.json'), function (
-  err,
-  result
-) {
-  const lesson = process.argv[process.argv.length - 1],
-    problems = JSON.parse(result);
+function run() {
+  fs.readFile(path.resolve(__dirname, 'menu.json'), function(
+    err,
+    result,
+  ) {
+    const lesson = process.argv[process.argv.length - 1],
+      problems = JSON.parse(result);
 
-  const success = function(lesson) {
-    process.stdout.write(
-      [
-        '\u2605'.yellow +
-        ' "' +
-        lesson +
-        '" completed with a gold star!',
-      ].join('\n') + '\n\n',
-    );
-  };
+    const success = function(lesson) {
+      process.stdout.write(
+        [
+          '\u2605'.yellow +
+          ' "' +
+          lesson +
+          '" completed with a gold star!',
+        ].join('\n') + '\n\n',
+      );
+    };
 
-  const usage = function() {
-    process.stdout.write(
-      ['Run jq-tutorial with one of the following:']
-        .concat(problems)
-        .join('\n  * ') + '\n\n',
-    );
-  };
+    const usage = function() {
+      process.stdout.write(
+        ['Run jq-tutorial with one of the following:']
+          .concat(problems)
+          .join('\n  * ') + '\n\n',
+      );
+    };
 
-  if (problems.indexOf(lesson) === -1) {
-    usage();
-  } else {
-    show(lesson, function (err) {
-      if (err) throw err;
-      success(lesson);
-    });
-  }
-});
+    if (problems.indexOf(lesson) === -1) {
+      usage();
+    } else {
+      show(lesson, function(err) {
+        if (err) throw err;
+        success(lesson);
+      });
+    }
+  });
+}
+
+import { run } from './app';
+run();

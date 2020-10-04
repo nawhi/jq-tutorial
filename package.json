@@ -3,11 +3,8 @@
   "version": "0.0.5",
   "description": "Exercises for learning jq",
   "main": "index.js",
-  "preferGlobal": true,
-  "bin": {
-    "jq-tutorial": "./bin/jq-tutorial"
-  },
   "scripts": {
+    "pretest": "tsc",
     "test": "mocha -r ts-node/register __tests__/**/*.test.ts",
     "start": "ts-node ./src"
   },
