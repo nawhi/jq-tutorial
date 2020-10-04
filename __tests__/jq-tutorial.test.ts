@@ -1,22 +1,25 @@
 import { expect } from 'chai';
 import { exec } from 'child_process';
 import * as path from 'path';
-import { readFileSync } from 'fs';
+import { getFixture } from './getFixture';
+
+const BINARY_PATH = path.resolve(
+  __dirname,
+  '..',
+  'bin',
+  'jq-tutorial'
+);
 
 describe('jq-tutorial acceptance', () => {
   it('displays help information when run without argument', async () => {
-    const stdout = await new Promise((res, rej) => {
-      const child = exec(
-        path.resolve(__dirname, '..', 'bin', 'jq-tutorial'),
-        (err, stdout, stderr) => {
-          if (err) rej(err);
-          console.error(stderr);
-          console.log(stdout);
-          res(stdout);
-        }
-      );
+    const stdout = await new Promise((resolve, reject) => {
+      exec(BINARY_PATH, (err, stdout, stderr) => {
+        if (err) reject(err);
+        console.error(stderr);
+        resolve(stdout);
+      });
     });
-    const expected = readFileSync(path.resolve(__dirname, 'fixtures', 'help.txt')).toString();
+    const expected = getFixture();
     expect(stdout).to.eql(expected);
   });
 });
