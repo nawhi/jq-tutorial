@@ -8,7 +8,7 @@
     "jq-tutorial": "./bin/jq-tutorial"
   },
   "scripts": {
-    "test": "./node_modules/jshint/bin/jshint *.js",
+    "test": "mocha -r ts-node/register __tests__/**/*.test.ts",
     "start": "ts-node ./src"
   },
   "prettier": {
@@ -20,7 +20,11 @@
     "arrowParens": "avoid"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
     "jshint": "^2.10.2",
+    "mocha": "^8.1.3",
     "prettier": "^2.1.2"
   },
   "dependencies": {
