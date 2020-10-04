@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "gender": "M",
+    "joined": 2008,
+    "left": 2010,
+    "department": "engineering"
+  },
+  {
+    "id": "2",
+    "gender": "M",
+    "joined": 2009,
+    "left": 2018,
+    "department": "finance",
+    "address": {
+      "line1": "25 The Street",
+      "line2": "Middleton",
+      "zip": "AA12 3FG",
+      "country": "UK"
+    }
+  },
+  {
+    "id": "3",
+    "gender": "F",
+    "department": "engineering",
+    "address": {
+      "country": "US"
+    }
+  }
+]
