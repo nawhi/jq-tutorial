@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:rjz/jq-tutorial.git"
+    "url": "git@github.com:nawhi/jq-tutorial.git"
   },
   "keywords": [
     "jq",
@@ -26,14 +26,10 @@
     "exercises"
   ],
   "bugs": {
-    "url": "https://github.com/rjz/jq-tutorial/issues"
+    "url": "https://github.com/nawhi/jq-tutorial/issues"
   },
-  "author": "RJ Zaworski <rj@rjzaworski.com> (http://rjzaworski.com)",
-  "contributors": [
-    {
-      "name": "CheshireSwift"
-    }
-  ],
+  "private": true,
+  "author": "Nick White <nick@nickwhite.cc> (https://nickwhite.cc)",
   "license": "MIT",
   "devDependencies": {
     "jshint": "^2.10.2"
