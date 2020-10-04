@@ -25,7 +25,7 @@ function divider () {
 function runOne (problem, callback) {
 
   var datafile = path.resolve(__dirname, 'data/' + problem.dataset + '.json');
-      solution = problem.solution;
+      var solution = problem.solution;
 
   var dataset = fs.readFileSync(datafile);
 
