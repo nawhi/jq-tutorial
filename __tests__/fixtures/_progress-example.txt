@@ -1,0 +1,5 @@
+mapping
+operators
+filtering
+output
+reduce

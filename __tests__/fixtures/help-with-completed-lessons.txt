@@ -1,0 +1,10 @@
+Run jq-tutorial with one of the following:
+ * objects
+ * arrays
+ * nesting
+ [32m✔[39m mapping
+ [32m✔[39m operators
+ [32m✔[39m filtering
+ [32m✔[39m output
+ [32m✔[39m reduce
+

@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { exec } from 'child_process';
 import { getFixture } from './getFixture';
+import * as path from 'path';
 
 describe('jq-tutorial', () => {
   it('displays help information when run without argument', async () => {
@@ -15,18 +16,20 @@ describe('jq-tutorial', () => {
     expect(stderr).to.be.empty;
   });
 
+  it('reads the progress file and displays ticks next to completed lessons', async () => {
+    const { stdout, stderr } = await runBinary('foo', path.resolve(__dirname, 'fixtures/_progress-example.txt'));
+    expect(stdout).to.eql(getFixture('help-with-completed-lessons.txt'));
+    expect(stderr).to.be.empty;
+  });
 });
 
-export function sleep(sleepMSecs: number) {
-  return new Promise(resolve => setTimeout(resolve, sleepMSecs));
-}
-
 async function runBinary(
-  argument: string
+  arg: string,
+  progressLocation: string = ''
 ): Promise<{ stdout: string; stderr: string }> {
   return new Promise((resolve, reject) => {
     exec(
-      `yarn --silent start ${argument}`,
+      `PROGRESS_FILE_PATH=${progressLocation} yarn --silent start ${arg}`,
       (err, stdout, stderr) => {
         if (err) reject(err);
         console.error(stderr);

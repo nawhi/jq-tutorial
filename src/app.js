@@ -10,7 +10,16 @@ export function runApp(
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
   stdin = process.stdin,
+  progressFilePath = process.env.PROGRESS_FILE_PATH || path.resolve(
+    __dirname,
+    '_progress.txt'
+  )
 ) {
+  const progress = fs.existsSync(progressFilePath)
+    ? fs.readFileSync(progressFilePath).toString()
+    : '';
+  const completedLessons = new Set(progress.split('\n'));
+
   function runJq(datafile, str, callback) {
     exec("jq '" + str + "' " + datafile, function (
       err,
@@ -100,23 +109,20 @@ export function runApp(
                 solution
               ),
             },
-            function (err, results) {
+            function (err, { actual, expected }) {
               if (err) {
                 stdout.write(err.red);
                 return rl.prompt();
               }
-
-              if (
-                _.isEqual(results.expected, results.actual)
-              ) {
+              if (_.isEqual(expected, actual)) {
                 rl.close();
                 callback(null);
               } else {
                 stdout.write('\nExpected:\n');
-                stdout.write(results.expected.green + '\n');
+                stdout.write(expected.green + '\n');
 
                 stdout.write('\nYour answer:\n');
-                stdout.write(results.actual.yellow + '\n');
+                stdout.write(actual.yellow + '\n');
                 rl.prompt();
               }
             }
@@ -163,34 +169,41 @@ export function runApp(
   return new Promise((resolve, reject) => {
     fs.readFile(
       path.resolve(__dirname, 'menu.json'),
-      function(err, result) {
+      function (err, result) {
         const lesson = lessonToRun,
           problems = JSON.parse(result);
 
-        const success = function(lesson) {
+        const success = function (lesson) {
           stdout.write(
             [
               '\u2605'.yellow +
-              ' "' +
-              lesson +
-              '" completed with a gold star!',
+                ' "' +
+                lesson +
+                '" completed with a gold star!',
             ].join('\n') + '\n\n'
           );
+          fs.appendFileSync();
           resolve();
         };
 
-        const usage = function() {
+        const usage = function () {
           stdout.write(
             ['Run jq-tutorial with one of the following:']
-              .concat(problems)
-              .join('\n  * ') + '\n\n'
+              .concat(
+                problems.map(p =>
+                  ' ' + (completedLessons.has(p)
+                    ? '✔'.green
+                    : '*') + ' ' + p
+                )
+              )
+              .join('\n') + '\n\n'
           );
         };
 
         if (problems.indexOf(lesson) === -1) {
           usage();
         } else {
-          show(lesson, function(err) {
+          show(lesson, function (err) {
             if (err) throw err;
             success(lesson);
           });
