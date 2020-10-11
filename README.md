@@ -10,7 +10,8 @@ This version is a fork of rjz's [original][5] with a slightly expanded set of le
 
 Clone the repo:
 ```
-    $ git clone https://github.com/nawhi/jq-tutorial 
+    $ git clone https://github.com/nawhi/jq-tutorial
+    $ cd jq-tutorial
 ```
 
 On first download you will need to install the dependencies:
