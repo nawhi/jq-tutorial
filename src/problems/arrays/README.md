@@ -12,22 +12,24 @@ For instance, to construct a single-element array with the contents of `currency
      ]
 
 Elements in an array may be extracted by index:
+    
+    $ sounds='["snap","crackle","pop"]'
 
-    $ jq '.[1]' <<< '["snap","crackle","pop"]' 
+    $ jq '.[1]' <<< $sounds
     "crackle"
 
 More than one index? No problem!
 
-    $ jq '.[1, 2]' <<< '["snap","crackle","pop"]'
+    $ jq '.[1, 2]' <<< $sounds
     "crackle"
     "pop"
 
 Python-style slicing is also supported:
 
-    $ jq '.[-1]' <<< '["snap","crackle","pop"]'
+    $ jq '.[-1]' <<< $sounds
     "pop"
    
-    $ jq '.[1:]' <<< '["snap","crackle","pop"]'
+    $ jq '.[1:]' <<< $sounds
     [
       "crackle",
       "pop"
@@ -36,7 +38,7 @@ Python-style slicing is also supported:
 
 We can even extract *all* elements at once by omitting the indices:
 
-    $ jq '.[]' <<< '["snap","crackle","pop"]'
+    $ jq '.[]' <<< $sounds
     "snap"
     "crackle"
     "pop"
@@ -44,7 +46,7 @@ We can even extract *all* elements at once by omitting the indices:
 Notice that this just prints the elements. If valid JSON is needed,
 we can construct an array by surrounding the extraction with square brackets:
 
-    $ jq '[.[]]' <<< '["snap","crackle","pop"]'
+    $ jq '[.[]]' <<< $sounds
     [
       "snap",
       "crackle",
