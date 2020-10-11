@@ -1,3 +1,5 @@
+import { checkEquivalent } from './checkEquivalent';
+
 require('colors');
 const fs = require('fs'),
   path = require('path'),
@@ -5,14 +7,6 @@ const fs = require('fs'),
   exec = require('child_process').exec,
   _ = require('lodash'),
   async = require('async');
-
-function get(cb, defaultResult) {
-  try {
-    return cb();
-  } catch (e) {
-    return defaultResult;
-  }
-}
 
 export function runApp(
   lessonToRun = process.argv[process.argv.length - 1],
@@ -121,10 +115,7 @@ export function runApp(
                 return rl.prompt();
               }
               if (
-                _.isEqual(
-                  get(() => JSON.parse(expected), expected),
-                  get(() => JSON.parse(actual), actual)
-                )
+                checkEquivalent(expected, actual)
               ) {
                 stdout.write(
                   '\n\nYou said: \n\n' +
@@ -195,7 +186,7 @@ export function runApp(
         const success = function (lesson) {
           stdout.write(
             [
-              '\u2605'.yellow +
+              '\n \u2605'.yellow +
                 ' "' +
                 lesson +
                 '" completed with a gold star!',
