@@ -119,7 +119,7 @@ export function runApp(
                 )
               ) {
                 stdout.write(
-                  '✔'.green + 'Correct! ' + '\n'
+                  ' ✔'.green + ' Correct! ' + '\n'
                 );
                 rl.close();
                 callback(null);
