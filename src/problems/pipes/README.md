@@ -1,4 +1,4 @@
-Pipes
+Pipes (work-in-progress)
 ========================================
 
 Being a stream-based processor, the area where `jq` gets really
