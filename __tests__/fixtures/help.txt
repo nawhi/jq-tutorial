@@ -1,7 +1,9 @@
 Run jq-tutorial with one of the following:
-  * pick
   * objects
+  * arrays
+  * nesting
   * mapping
+  * operators
   * filtering
   * output
   * reduce

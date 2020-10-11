@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { exec } from 'child_process';
 import { getFixture } from './getFixture';
-import { runApp } from '../src/app';
 
 describe('jq-tutorial', () => {
   it('displays help information when run without argument', async () => {
@@ -16,26 +15,7 @@ describe('jq-tutorial', () => {
     expect(stderr).to.be.empty;
   });
 
-  xit('displays pick readme and prompt when run with "pick" argument', async () => {
-    const { stdout, stderr } = await runBinary('pick');
-    const expected = getFixture('pick.txt');
-    expect(stdout).to.eql(expected);
-    expect(stderr).to.be.empty;
-  });
-
-  it('testing', async () => {
-    await run2('pick');
-  });
 });
-
-async function run2(lesson: string) {
-  return await new Promise(async (res, rej) => {
-    const stdin = require('mock-stdin').stdin();
-    runApp(lesson, process.stdout, stdin).then(res);
-    await sleep(1000);
-    stdin.end();
-  });
-}
 
 export function sleep(sleepMSecs: number) {
   return new Promise(resolve => setTimeout(resolve, sleepMSecs));
