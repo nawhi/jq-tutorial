@@ -112,14 +112,13 @@ export function runApp(
                 stdout.write(err.red);
                 return rl.prompt();
               }
-              if (
-                _.isEqual(
-                  JSON.parse(expected),
-                  JSON.parse(actual)
-                )
-              ) {
-                stdout.write('\n\nYou said: \n\n' +
-                  actual.green + '\n\n ✔'.green + ' Correct! ' + '\n'
+              if (_.isEqual(expected, actual)) {
+                stdout.write(
+                  '\n\nYou said: \n\n' +
+                    actual.green +
+                    '\n\n ✔'.green +
+                    ' Correct! ' +
+                    '\n'
                 );
                 rl.close();
                 callback(null);
@@ -198,7 +197,9 @@ export function runApp(
 
         const usage = function () {
           stdout.write(
-            ['Run jq-tutorial with one of the following arguments:']
+            [
+              'Run jq-tutorial with one of the following arguments:',
+            ]
               .concat(
                 problems.map(
                   p =>
