@@ -5,7 +5,7 @@
     "solution": "[.[].category]"
   },
   {
-    "prompt": "Select all websites in the first category",
+    "prompt": "Select all websites in the first category as strings",
     "dataset": "companies",
     "solution": ".[0].companies[].website"
   },
