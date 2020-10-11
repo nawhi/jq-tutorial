@@ -182,7 +182,10 @@ export function runApp(
                 '" completed with a gold star!',
             ].join('\n') + '\n\n'
           );
-          fs.appendFileSync();
+          fs.appendFileSync(
+            progressFilePath,
+            lessonToRun + '\n'
+          );
           resolve();
         };
 
