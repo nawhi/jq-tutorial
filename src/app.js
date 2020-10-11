@@ -114,7 +114,15 @@ export function runApp(
                 stdout.write(err.red);
                 return rl.prompt();
               }
-              if (_.isEqual(expected, actual)) {
+              if (
+                _.isEqual(
+                  JSON.parse(expected),
+                  JSON.parse(actual)
+                )
+              ) {
+                stdout.write(
+                  '✔'.green + 'Correct! ' + '\n'
+                );
                 rl.close();
                 callback(null);
               } else {
