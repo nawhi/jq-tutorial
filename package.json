@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "tsc",
     "test": "mocha -r ts-node/register __tests__/**/*.test.ts",
-    "start": "ts-node ./src",
+    "start": "node ./src",
     "erase-progress": "rm src/_progress.txt"
   },
   "prettier": {
