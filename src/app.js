@@ -118,8 +118,8 @@ export function runApp(
                   JSON.parse(actual)
                 )
               ) {
-                stdout.write(
-                  '\n\n ✔'.green + ' Correct! ' + '\n'
+                stdout.write('\n\nYou said: \n\n' +
+                  actual.green + '\n\n ✔'.green + ' Correct! ' + '\n'
                 );
                 rl.close();
                 callback(null);
@@ -129,6 +129,7 @@ export function runApp(
 
                 stdout.write('\nYour answer:\n');
                 stdout.write(actual.yellow + '\n');
+
                 rl.prompt();
               }
             }
