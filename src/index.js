@@ -1,3 +1,3 @@
-import { runApp } from './app';
+const runApp = require('./app');
 
 runApp();

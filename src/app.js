@@ -1,14 +1,14 @@
-import { checkEquivalent } from './checkEquivalent';
-
 require('colors');
-const fs = require('fs'),
+
+const checkEquivalent = require('./checkEquivalent'),
+  fs = require('fs'),
   path = require('path'),
   readline = require('readline'),
   exec = require('child_process').exec,
   _ = require('lodash'),
   async = require('async');
 
-export function runApp(
+module.exports = function (
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
   stdin = process.stdin,
@@ -114,9 +114,7 @@ export function runApp(
                 stdout.write(err.red);
                 return rl.prompt();
               }
-              if (
-                checkEquivalent(expected, actual)
-              ) {
+              if (checkEquivalent(expected, actual)) {
                 stdout.write(
                   '\n\nYou said: \n\n' +
                     actual.green +

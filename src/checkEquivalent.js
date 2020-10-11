@@ -8,9 +8,9 @@ function get(cb, defaultResult) {
   }
 }
 
-export function checkEquivalent(expected, actual) {
+module.exports = function (expected, actual) {
   return _.isEqual(
     get(() => JSON.parse(expected), expected),
-    get(() => JSON.parse(actual), actual),
+    get(() => JSON.parse(actual), actual)
   );
-}
+};
