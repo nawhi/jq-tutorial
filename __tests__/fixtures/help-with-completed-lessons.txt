@@ -1,4 +1,4 @@
-Run jq-tutorial with one of the following:
+Run jq-tutorial with one of the following arguments:
  * objects
  * arrays
  * nesting

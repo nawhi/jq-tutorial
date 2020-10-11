@@ -10,10 +10,8 @@ export function runApp(
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
   stdin = process.stdin,
-  progressFilePath = process.env.PROGRESS_FILE_PATH || path.resolve(
-    __dirname,
-    '_progress.txt'
-  )
+  progressFilePath = process.env.PROGRESS_FILE_PATH ||
+    path.resolve(__dirname, '_progress.txt')
 ) {
   const progress = fs.existsSync(progressFilePath)
     ? fs.readFileSync(progressFilePath).toString()
@@ -199,12 +197,16 @@ export function runApp(
 
         const usage = function () {
           stdout.write(
-            ['Run jq-tutorial with one of the following:']
+            ['Run jq-tutorial with one of the following arguments:']
               .concat(
-                problems.map(p =>
-                  ' ' + (completedLessons.has(p)
-                    ? '✔'.green
-                    : '*') + ' ' + p
+                problems.map(
+                  p =>
+                    ' ' +
+                    (completedLessons.has(p)
+                      ? '✔'.green
+                      : '*') +
+                    ' ' +
+                    p
                 )
               )
               .join('\n') + '\n\n'
