@@ -6,6 +6,14 @@ const fs = require('fs'),
   _ = require('lodash'),
   async = require('async');
 
+function get(cb, defaultResult) {
+  try {
+    return cb();
+  } catch (e) {
+    return defaultResult;
+  }
+}
+
 export function runApp(
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
@@ -112,7 +120,12 @@ export function runApp(
                 stdout.write(err.red);
                 return rl.prompt();
               }
-              if (_.isEqual(expected, actual)) {
+              if (
+                _.isEqual(
+                  get(() => JSON.parse(expected), expected),
+                  get(() => JSON.parse(actual), actual)
+                )
+              ) {
                 stdout.write(
                   '\n\nYou said: \n\n' +
                     actual.green +
