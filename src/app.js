@@ -8,12 +8,14 @@ const checkEquivalent = require('./checkEquivalent'),
   _ = require('lodash'),
   async = require('async');
 
+const BASE_PATH = path.resolve(__dirname, '..');
+
 module.exports = function (
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
   stdin = process.stdin,
   progressFilePath = process.env.PROGRESS_FILE_PATH ||
-    path.resolve(__dirname, '_progress.txt')
+    path.resolve(BASE_PATH, '_progress.txt')
 ) {
   const progress = fs.existsSync(progressFilePath)
     ? fs.readFileSync(progressFilePath).toString()
@@ -44,7 +46,7 @@ module.exports = function (
 
   function runOne(problem, callback) {
     const datafile = path.resolve(
-      __dirname,
+      BASE_PATH,
       'data/' + problem.dataset + '.json'
     );
     const solution = problem.solution;
@@ -143,13 +145,13 @@ module.exports = function (
     async.map(
       [
         path.resolve(
-          __dirname,
+          BASE_PATH,
           'problems',
           problem,
           'README.md'
         ),
         path.resolve(
-          __dirname,
+          BASE_PATH,
           'problems',
           problem,
           'problem.json'
@@ -175,57 +177,55 @@ module.exports = function (
   }
 
   return new Promise((resolve, reject) => {
-    fs.readFile(
-      path.resolve(__dirname, 'menu.json'),
-      function (err, result) {
-        const lesson = lessonToRun,
-          problems = JSON.parse(result);
+    const path1 = path.join(BASE_PATH, 'problems', 'menu.json');
+    fs.readFile(path1, function (err, result) {
+      const lesson = lessonToRun,
+        problems = JSON.parse(result);
 
-        const success = function (lesson) {
-          stdout.write(
-            [
-              '\n \u2605'.yellow +
-                ' "' +
-                lesson +
-                '" completed with a gold star!',
-            ].join('\n') + '\n\n'
-          );
-          fs.appendFileSync(
-            progressFilePath,
-            lessonToRun + '\n'
-          );
-          resolve();
-        };
+      const success = function (lesson) {
+        stdout.write(
+          [
+            '\n \u2605'.yellow +
+              ' "' +
+              lesson +
+              '" completed with a gold star!',
+          ].join('\n') + '\n\n'
+        );
+        fs.appendFileSync(
+          progressFilePath,
+          lessonToRun + '\n'
+        );
+        resolve();
+      };
 
-        const usage = function () {
-          stdout.write(
-            [
-              'Run jq-tutorial with one of the following arguments:',
-            ]
-              .concat(
-                problems.map(
-                  p =>
-                    ' ' +
-                    (completedLessons.has(p)
-                      ? '✔'.green
-                      : '*') +
-                    ' ' +
-                    p
-                )
+      const usage = function () {
+        stdout.write(
+          [
+            'Run jq-tutorial with one of the following arguments:',
+          ]
+            .concat(
+              problems.map(
+                p =>
+                  ' ' +
+                  (completedLessons.has(p)
+                    ? '✔'.green
+                    : '*') +
+                  ' ' +
+                  p
               )
-              .join('\n') + '\n\n'
-          );
-        };
+            )
+            .join('\n') + '\n\n'
+        );
+      };
 
-        if (problems.indexOf(lesson) === -1) {
-          usage();
-        } else {
-          show(lesson, function (err) {
-            if (err) throw err;
-            success(lesson);
-          });
-        }
+      if (problems.indexOf(lesson) === -1) {
+        usage();
+      } else {
+        show(lesson, function (err) {
+          if (err) throw err;
+          success(lesson);
+        });
       }
-    );
+    });
   });
-}
+};
