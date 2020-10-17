@@ -4,8 +4,8 @@
   "description": "Exercises for learning jq",
   "scripts": {
     "pretest": "tsc",
-    "test": "mocha -r ts-node/register __tests__/**/*.test.ts",
-    "prepack": "yarn && tsc",
+    "test": "tsc && mocha -r ts-node/register __tests__/**/*.test.ts",
+    "prepare": "tsc",
     "start": "ts-node ./src",
     "erase-progress": "rm src/_progress.txt"
   },
