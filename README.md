@@ -8,25 +8,10 @@ This version is a fork of rjz's [original][5] with a slightly expanded set of le
 
 [Download and install][2] jq. Make sure `jq --version` outputs `jq-1.6`.
 
-Clone the repo:
+Grab the latest version of the package and run it:
 ```
-    $ git clone https://github.com/nawhi/jq-tutorial
-    $ cd jq-tutorial
-```
-
-On first download you will need to install the dependencies:
-```
-    $ yarn install --production
-``` 
-
-Then you can start learning:
-```
-    $ yarn start 
-```
-
-Your progress is saved in a file. If you want to start again:
-```
-    $ yarn erase-progress
+    $ npm install -g https://github.com/nawhi/jq-tutorial/releases/latest/download/jq-tutorial.tgz
+    $ jq-tutorial
 ```
 
 ### Attribution
