@@ -2,7 +2,6 @@
   "name": "jq-tutorial",
   "version": "0.0.5",
   "description": "Exercises for learning jq",
-  "main": "index.js",
   "scripts": {
     "pretest": "tsc",
     "test": "mocha -r ts-node/register __tests__/**/*.test.ts",
@@ -19,7 +18,7 @@
     "arrowParens": "avoid"
   },
   "bin": {
-    "jq-tutorial": "./bin/jq-tutorial"
+    "jq-tutorial": "./bin/jq-tutorial.js"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
