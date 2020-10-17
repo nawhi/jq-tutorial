@@ -17,6 +17,9 @@
     "singleQuote": true,
     "arrowParens": "avoid"
   },
+  "bin": {
+    "jq-tutorial": "./bin/jq-tutorial"
+  },
   "devDependencies": {
     "@types/chai": "^4.2.12",
     "@types/lodash": "^4.14.162",
