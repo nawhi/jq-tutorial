@@ -5,7 +5,7 @@
   "scripts": {
     "pretest": "tsc",
     "test": "mocha -r ts-node/register __tests__/**/*.test.ts",
-    "prepack": "tsc",
+    "prepack": "yarn && tsc",
     "start": "ts-node ./src",
     "erase-progress": "rm src/_progress.txt"
   },
