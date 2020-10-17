@@ -17,6 +17,7 @@
     "singleQuote": true,
     "arrowParens": "avoid"
   },
+  "files": ["./dist", "./bin", "./data", "./problems"],
   "bin": {
     "jq-tutorial": "./bin/jq-tutorial.js"
   },
