@@ -1,0 +1,28 @@
+[
+  {
+    "prompt": "Select all items from the list",
+    "dataset": "products",
+    "solution": ".[]"
+  },
+  {
+    "prompt": "Select the second and third items in the list:",
+    "dataset": "products",
+    "solution": ".[1,2]"
+  },
+  {
+    "prompt": "Select the name of the first item in the list:",
+    "dataset": "products",
+    "solution": ".[0].name"
+  },
+  {
+    "prompt": "Select the names of all items, as a JSON array",
+    "dataset": "products",
+    "solution": "[.[].name]"
+  },
+  {
+    "prompt": "Select the name of the last item",
+    "dataset": "products",
+    "solution": ".[-1].name"
+  }
+]
+
