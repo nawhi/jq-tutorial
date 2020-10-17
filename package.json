@@ -1,6 +1,6 @@
 {
   "name": "jq-tutorial",
-  "version": "0.0.5",
+  "version": "v0.1",
   "description": "Exercises for learning jq",
   "scripts": {
     "pretest": "tsc",
@@ -17,7 +17,12 @@
     "singleQuote": true,
     "arrowParens": "avoid"
   },
-  "files": ["./dist", "./bin", "./data", "./problems"],
+  "files": [
+    "./dist",
+    "./bin",
+    "./data",
+    "./problems"
+  ],
   "bin": {
     "jq-tutorial": "./bin/jq-tutorial.js"
   },
@@ -51,7 +56,6 @@
   "bugs": {
     "url": "https://github.com/nawhi/jq-tutorial/issues"
   },
-  "private": true,
   "author": "Nick White <nick@nickwhite.cc> (https://nickwhite.cc)",
   "license": "MIT"
 }
