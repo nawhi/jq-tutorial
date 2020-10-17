@@ -1,6 +1,6 @@
 {
   "name": "jq-tutorial",
-  "version": "v0.1",
+  "version": "0.0.1",
   "description": "Exercises for learning jq",
   "scripts": {
     "pretest": "tsc",
