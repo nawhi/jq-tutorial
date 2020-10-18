@@ -25,11 +25,11 @@ describe('jq-tutorial', () => {
 
 async function runBinary(
   arg: string,
-  progressLocation: string = ''
+  progressLocation: string = path.resolve(__dirname, 'fixtures/_progress-blank.txt')
 ): Promise<{ stdout: string; stderr: string }> {
   return new Promise((resolve, reject) => {
     exec(
-      `PROGRESS_FILE_PATH=${progressLocation} yarn --silent start ${arg}`,
+      `PROGRESS_FILE_PATH=${progressLocation} node ${path.resolve(__dirname, '../bin/jq-tutorial.js')} ${arg}`,
       (err, stdout, stderr) => {
         if (err) reject(err);
         console.error(stderr);
