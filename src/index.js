@@ -1,3 +1,3 @@
-const runApp = require('./app');
+import runApp from './app';
 
 runApp();

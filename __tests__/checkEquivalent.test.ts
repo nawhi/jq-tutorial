@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { checkEquivalent } from '../src/checkEquivalent';
+import checkEquivalent from '../src/checkEquivalent';
 
 describe('checkEquivalent', () => {
   it('returns false if given two different JSON strings', () => {

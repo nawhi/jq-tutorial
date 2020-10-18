@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import * as _ from 'lodash';
 
 function get(cb, defaultResult) {
   try {
@@ -8,9 +8,9 @@ function get(cb, defaultResult) {
   }
 }
 
-module.exports = function (expected, actual) {
+export default function(expected, actual) {
   return _.isEqual(
     get(() => JSON.parse(expected), expected),
     get(() => JSON.parse(actual), actual)
   );
-};
+}

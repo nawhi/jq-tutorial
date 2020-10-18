@@ -1,21 +1,20 @@
 require('colors');
-
-const checkEquivalent = require('./checkEquivalent'),
-  fs = require('fs'),
-  path = require('path'),
-  readline = require('readline'),
-  exec = require('child_process').exec,
-  _ = require('lodash'),
-  async = require('async');
+import checkEquivalent from './checkEquivalent';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as readline from 'readline';
+import { exec } from 'child_process';
+import * as _ from 'lodash';
+import * as async from 'async';
 
 const BASE_PATH = path.resolve(__dirname, '..');
 
-module.exports = function (
+export default function(
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
   stdin = process.stdin,
   progressFilePath = process.env.PROGRESS_FILE_PATH ||
-    path.resolve(BASE_PATH, '_progress.txt')
+  path.resolve(BASE_PATH, '_progress.txt'),
 ) {
   const progress = fs.existsSync(progressFilePath)
     ? fs.readFileSync(progressFilePath).toString()
@@ -228,4 +227,4 @@ module.exports = function (
       }
     });
   });
-};
+}

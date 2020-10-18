@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Exercises for learning jq",
   "scripts": {
-    "pretest": "tsc",
-    "test": "tsc && mocha -r ts-node/register __tests__/**/*.test.ts",
+    "test": "mocha",
     "prepare": "tsc",
-    "start": "ts-node ./src",
+    "prestart": "tsc",
+    "start": "node bin/jq-tutorial.js",
     "erase-progress": "rm src/_progress.txt"
   },
   "prettier": {
