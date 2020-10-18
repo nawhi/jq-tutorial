@@ -8,9 +8,9 @@ function get(cb, defaultResult) {
   }
 }
 
-export default function(expected, actual) {
+export const checkEquivalent = function(expected, actual) {
   return _.isEqual(
     get(() => JSON.parse(expected), expected),
     get(() => JSON.parse(actual), actual)
   );
-}
+};
