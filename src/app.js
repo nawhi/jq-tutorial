@@ -1,4 +1,4 @@
-require('colors');
+import { Progress } from './Progress';
 import { checkEquivalent } from './checkEquivalent';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -7,19 +7,17 @@ import { exec } from 'child_process';
 import * as _ from 'lodash';
 import * as async from 'async';
 
+require('colors');
+
 const BASE_PATH = path.resolve(__dirname, '..');
 
+const PROGRESS_FILE_PATH = path.resolve(BASE_PATH, '_progress.json');
 export default function(
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = process.stdout,
   stdin = process.stdin,
-  progressFilePath = process.env.PROGRESS_FILE_PATH ||
-  path.resolve(BASE_PATH, '_progress.txt'),
 ) {
-  const progress = fs.existsSync(progressFilePath)
-    ? fs.readFileSync(progressFilePath).toString()
-    : '';
-  const completedLessons = new Set(progress.split('\n'));
+  const progress = new Progress(PROGRESS_FILE_PATH);
 
   function runJq(datafile, str, callback) {
     exec("jq '" + str + "' " + datafile, function (
@@ -190,10 +188,7 @@ export default function(
               '" completed with a gold star!',
           ].join('\n') + '\n\n'
         );
-        fs.appendFileSync(
-          progressFilePath,
-          lessonToRun + '\n'
-        );
+        progress.save(lesson);
         resolve();
       };
 
@@ -206,7 +201,7 @@ export default function(
               problems.map(
                 p =>
                   ' ' +
-                  (completedLessons.has(p)
+                  (progress.isCompleted(p)
                     ? '✔'.green
                     : '*') +
                   ' ' +

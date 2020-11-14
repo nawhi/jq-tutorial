@@ -7,7 +7,7 @@
     "prepare": "tsc",
     "prestart": "tsc",
     "start": "node bin/jq-tutorial.js",
-    "erase-progress": "rm src/_progress.txt"
+    "erase-progress": "rm src/_progress.json"
   },
   "prettier": {
     "trailingComma": "es5",
