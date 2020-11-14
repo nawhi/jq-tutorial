@@ -9,14 +9,16 @@ const cases: [string, string, boolean][] = [
   ['{"foo":  "bar", "baz":"qux"}', '{"foo":"bar","baz":"qux"}', true],
   ['[1,2,3,4]', '[4,3,2,1]', false],
   ['foobar', 'foobar', true],
-  ['foobar\nbazqux', 'foobar\nbazqux', true]
+  ['foobar\nbazqux', 'foobar\nbazqux', true],
 ];
 
+const escape = (s: string) => s.replace('\n', '\\n');
+
 cases.forEach(([a, b, shouldEqual]) => {
-  test(`${escape(a)} ${shouldEqual ? "==" : "!="} ${escape(b)}`, t => {
+  test(`'${escape(a)}' ${shouldEqual ? "==" : "!="} '${escape(b)}'`, t => {
     t.deepEqual(checkEquivalent(a, b), shouldEqual);
-  })
-})
+  });
+});
 
 test('returns false if given two different JSON strings', t => {
   t.false(checkEquivalent('{}', '{"foo": "bar"}'));
