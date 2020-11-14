@@ -1,0 +1,7 @@
+[
+  {
+    "prompt": "Select the entire item (hint: don't overthink this!)",
+    "dataset": "product",
+    "solution": "."
+  }
+]
