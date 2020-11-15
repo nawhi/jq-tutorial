@@ -6,6 +6,7 @@ import * as readline from 'readline';
 import { exec } from 'child_process';
 import * as _ from 'lodash';
 import * as async from 'async';
+import { Output } from './Output';
 
 require('colors');
 
@@ -14,7 +15,7 @@ const BASE_PATH = path.resolve(__dirname, '..');
 const PROGRESS_FILE_PATH = path.resolve(BASE_PATH, '_progress.json');
 export default function(
   lessonToRun = process.argv[process.argv.length - 1],
-  stdout = process.stdout,
+  stdout = new Output(process.stdout),
   stdin = process.stdin,
 ) {
   const progress = new Progress(PROGRESS_FILE_PATH);
@@ -28,11 +29,6 @@ export default function(
       const errorMessage = err && err.message;
       callback(errorMessage || stderr, stdout);
     });
-  }
-
-  function clearscreen() {
-    // ref: http://stackoverflow.com/questions/8813142
-    stdout.write('\u001B[2J\u001B[0;0f');
   }
 
   function divider() {
@@ -159,7 +155,7 @@ export default function(
         if (err) throw err;
         const problems = JSON.parse(results[1]);
 
-        clearscreen();
+        stdout.clearScreen();
 
         // Print README
         stdout.write(results[0]);
