@@ -35,19 +35,9 @@ export default function(
       output: stdout,
     });
 
-    const problemPrompt = function () {
-      stdout.write([
-        'Given: '.bold.white +
-        "   '" +
-        problem.dataset +
-        '\' (type "data?" to view)',
-        'Challenge: '.bold.white + problem.prompt + '\n',
-      ].join('\n') + '\n');
-      rl.prompt();
-    };
-
     stdout.writeDivider();
-    problemPrompt();
+    stdout.writeProblem(problem);
+    rl.prompt();
 
     rl.on('line', function (answer) {
       switch (answer) {
@@ -57,7 +47,8 @@ export default function(
           rl.prompt();
           break;
         case 'prompt?':
-          problemPrompt();
+          stdout.writeProblem(problem);
+          rl.prompt();
           break;
         case 'data?':
           stdout.write(dataset.toString());
