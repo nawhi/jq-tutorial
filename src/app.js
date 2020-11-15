@@ -56,17 +56,6 @@ export default function(
       rl.prompt();
     };
 
-    const helpMessage = function () {
-      writeAndPrompt(
-        [
-          'Enter your answer or one of the following:',
-          '  * help?   show this help message',
-          '  * prompt? show the original challenge prompt',
-          '  * data?   show the challenge data set',
-        ].join('\n')
-      );
-    };
-
     const problemPrompt = function () {
       writeAndPrompt(
         [
@@ -79,14 +68,15 @@ export default function(
       );
     };
 
-    divider();
+    stdout.writeDivider();
     problemPrompt();
 
     rl.on('line', function (answer) {
       switch (answer) {
         case '?':
         case 'help?':
-          helpMessage();
+          stdout.writeHelpMessage();
+          rl.prompt();
           break;
         case 'prompt?':
           problemPrompt();
