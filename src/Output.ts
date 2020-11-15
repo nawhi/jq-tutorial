@@ -1,3 +1,7 @@
+import { Problem } from './Problem';
+import * as colors from 'colors/safe';
+import { bold, white } from 'colors/safe';
+
 export interface OutputStream {
   write(message: string): void;
 }
@@ -33,5 +37,15 @@ export class Output {
 
   writeLine(message: string) {
     this.out.write(message + '\n');
+  }
+
+  writeProblem(problem: Problem) {
+    this.out.write([
+      white(bold('Given: ')) +
+      "   '" +
+      problem.dataset +
+      '\' (type "data?" to view)',
+      white(bold('Challenge: ')) + problem.prompt + '\n',
+    ].join('\n') + '\n');
   }
 }
