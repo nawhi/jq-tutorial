@@ -31,12 +31,6 @@ export default function(
     });
   }
 
-  function divider() {
-    stdout.write(
-      '\n\n--------------------------------\n\n'
-    );
-  }
-
   function runOne(problem, callback) {
     const datafile = path.resolve(
       BASE_PATH,
