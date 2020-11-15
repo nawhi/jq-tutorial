@@ -51,21 +51,15 @@ export default function(
       output: stdout,
     });
 
-    const writeAndPrompt = function (what) {
-      stdout.write(what + '\n');
-      rl.prompt();
-    };
-
     const problemPrompt = function () {
-      writeAndPrompt(
-        [
-          'Given: '.bold.white +
-            "   '" +
-            problem.dataset +
-            '\' (type "data?" to view)',
-          'Challenge: '.bold.white + problem.prompt + '\n',
-        ].join('\n')
-      );
+      stdout.write([
+        'Given: '.bold.white +
+        "   '" +
+        problem.dataset +
+        '\' (type "data?" to view)',
+        'Challenge: '.bold.white + problem.prompt + '\n',
+      ].join('\n') + '\n');
+      rl.prompt();
     };
 
     stdout.writeDivider();
@@ -82,7 +76,8 @@ export default function(
           problemPrompt();
           break;
         case 'data?':
-          writeAndPrompt(dataset);
+          stdout.write(dataset.toString());
+          rl.prompt();
           break;
         default:
           async.parallel(
