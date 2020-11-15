@@ -3,33 +3,23 @@ import { checkEquivalent } from './checkEquivalent';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as readline from 'readline';
-import { exec } from 'child_process';
 import * as _ from 'lodash';
 import * as async from 'async';
 import { Output } from './Output';
+import { runJq } from './runJq';
 
 require('colors');
 
 const BASE_PATH = path.resolve(__dirname, '..');
 
 const PROGRESS_FILE_PATH = path.resolve(BASE_PATH, '_progress.json');
+
 export default function(
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = new Output(process.stdout),
   stdin = process.stdin,
 ) {
   const progress = new Progress(PROGRESS_FILE_PATH);
-
-  function runJq(datafile, str, callback) {
-    exec("jq '" + str + "' " + datafile, function (
-      err,
-      stdout,
-      stderr
-    ) {
-      const errorMessage = err && err.message;
-      callback(errorMessage || stderr, stdout);
-    });
-  }
 
   function runOne(problem, callback) {
     const datafile = path.resolve(
