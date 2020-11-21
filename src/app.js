@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import * as async from 'async';
 import { Output } from './Output';
 import { runJq } from './runJq';
+import { Messages } from './Messages';
 
 require('colors');
 
@@ -35,7 +36,7 @@ export default function(
       output: stdout,
     });
 
-    stdout.writeDivider();
+    stdout.write(Messages.DIVIDER);
     stdout.writeProblem(problem);
     rl.prompt();
 
@@ -43,7 +44,7 @@ export default function(
       switch (answer) {
         case '?':
         case 'help?':
-          stdout.writeHelpMessage();
+          stdout.write(Messages.HELP);
           rl.prompt();
           break;
         case 'prompt?':
@@ -105,7 +106,7 @@ export default function(
         if (err) throw err;
         const problems = JSON.parse(results[1]);
 
-        stdout.clearScreen();
+        stdout.write(Messages.CLEAR_SCREEN);
 
         // Print README
         stdout.write(results[0]);

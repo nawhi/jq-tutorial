@@ -1,34 +1,34 @@
 import test from 'ava';
 import { bold, green, red, white, yellow } from 'colors/safe';
 import { spy } from 'sinon';
-import { CLEAR_SCREEN_SEQUENCE, DIVIDER, HELP_MESSAGE, Output } from '../src/Output';
+import { Output } from '../src/Output';
 import { Messages } from '../src/Messages';
 
 test('writes a clear-screen sequence', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
 
-  output.clearScreen();
+  output.write(Messages.CLEAR_SCREEN);
 
-  t.deepEqual(writeSpy.firstCall.firstArg, CLEAR_SCREEN_SEQUENCE);
+  t.deepEqual(writeSpy.firstCall.firstArg, Messages.CLEAR_SCREEN);
 });
 
 test('writes a divider', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
 
-  output.writeDivider();
+  output.write(Messages.DIVIDER);
 
-  t.deepEqual(writeSpy.firstCall.firstArg, DIVIDER);
+  t.deepEqual(writeSpy.firstCall.firstArg, Messages.DIVIDER);
 });
 
 test('writes help message', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
 
-  output.writeHelpMessage();
+  output.write(Messages.HELP);
 
-  t.deepEqual(writeSpy.firstCall.firstArg, HELP_MESSAGE);
+  t.deepEqual(writeSpy.firstCall.firstArg, Messages.HELP);
 });
 
 test('writes problem description', t => {
@@ -52,7 +52,7 @@ test('writes anything with an extra newline', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
 
-  output.writeLine('a message');
+  output.write('a message' + '\n');
 
   t.deepEqual(writeSpy.firstCall.firstArg, 'a message\n');
 });
