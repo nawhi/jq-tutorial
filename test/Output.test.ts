@@ -1,5 +1,5 @@
 import test from 'ava';
-import { bold, green, red, white } from 'colors/safe';
+import { bold, green, red, white, yellow } from 'colors/safe';
 import { spy } from 'sinon';
 import {
   CLEAR_SCREEN_SEQUENCE,
@@ -87,13 +87,20 @@ test('writes correct answer in green', t => {
 
   t.deepEqual(
     writeSpy.firstCall.firstArg,
-    `
+    `\n\nYou said: \n\n${green('[]')}\n\n ${TICK} Correct! \n`
+  );
+});
 
-You said: 
+test('writes incorrect answers with expected', t => {
+  const writeSpy = spy();
+  const output = new Output({ write: writeSpy });
 
-${green('[]')}
+  output.writeIncorrect('{}', '{\n"foo":"bar"\n}');
 
- ${TICK} Correct! 
-`
+  const e = green('{\n"foo":"bar"\n}');
+  const a = yellow('{}');
+  t.deepEqual(
+    writeSpy.firstCall.firstArg,
+    `\nExpected:\n${e}\n\n\nYour answer:\n${a}\n\n`
   );
 });

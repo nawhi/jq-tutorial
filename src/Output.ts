@@ -1,5 +1,5 @@
 import { Problem } from './Problem';
-import { bold, green, red, white } from 'colors/safe';
+import { bold, green, red, white, yellow } from 'colors/safe';
 
 export interface OutputStream {
   write(message: string): void;
@@ -56,14 +56,13 @@ export class Output {
 
   writeCorrect(answer: string) {
     this.out.write(
-      `
-
-You said: 
-
-${green(answer)}
-
- ${TICK} Correct! 
-`
+      `\n\nYou said: \n\n${green(answer)}\n\n ${TICK} Correct! \n`
     );
+  }
+
+  writeIncorrect(answer: string, expected: string) {
+    const e = green(expected);
+    const a = yellow(answer);
+    this.out.write(`\nExpected:\n${e}\n\n\nYour answer:\n${a}\n\n`);
   }
 }
