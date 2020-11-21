@@ -1,13 +1,8 @@
 import test from 'ava';
 import { bold, green, red, white, yellow } from 'colors/safe';
 import { spy } from 'sinon';
-import {
-  CLEAR_SCREEN_SEQUENCE,
-  DIVIDER,
-  HELP_MESSAGE,
-  Output,
-  TICK,
-} from '../src/Output';
+import { CLEAR_SCREEN_SEQUENCE, DIVIDER, HELP_MESSAGE, Output } from '../src/Output';
+import { Messages } from '../src/Messages';
 
 test('writes a clear-screen sequence', t => {
   const writeSpy = spy();
@@ -87,7 +82,7 @@ test('writes correct answer in green', t => {
 
   t.deepEqual(
     writeSpy.firstCall.firstArg,
-    `\n\nYou said: \n\n${green('[]')}\n\n ${TICK} Correct! \n`
+    `\n\nYou said: \n\n${green('[]')}\n\n ${Messages.TICK} Correct! \n`
   );
 });
 

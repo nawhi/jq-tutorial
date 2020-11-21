@@ -1,5 +1,6 @@
 import { Problem } from './Problem';
-import { bold, green, red, white, yellow } from 'colors/safe';
+import { green } from 'colors/safe';
+import { Messages } from './Messages';
 
 export interface OutputStream {
   write(message: string): void;
@@ -13,7 +14,6 @@ export const HELP_MESSAGE = `Enter your answer or one of the following:
   * data?   show the challenge data set
 
 `;
-export const TICK = green('✔');
 
 export class Output {
   constructor(private out: OutputStream) {}
@@ -27,42 +27,32 @@ export class Output {
   }
 
   writeDivider() {
-    this.out.write(DIVIDER);
+    this.out.write(Messages.DIVIDER);
   }
 
   writeHelpMessage() {
-    this.out.write(HELP_MESSAGE);
+    this.out.write(Messages.HELP);
   }
 
-  writeError(error: string) {
-    this.out.write(red(error));
+  writeError(e: string) {
+    this.out.write(Messages.error(e));
   }
 
   writeLine(message: string) {
     this.out.write(message + '\n');
   }
 
-  writeProblem(problem: Problem) {
+  writeProblem(p: Problem) {
     this.out.write(
-      [
-        white(bold('Given: ')) +
-          "   '" +
-          problem.dataset +
-          '\' (type "data?" to view)',
-        white(bold('Challenge: ')) + problem.prompt + '\n',
-      ].join('\n') + '\n'
+      Messages.problem(p)
     );
   }
 
   writeCorrect(answer: string) {
-    this.out.write(
-      `\n\nYou said: \n\n${green(answer)}\n\n ${TICK} Correct! \n`
-    );
+    this.out.write(Messages.correct(answer));
   }
 
   writeIncorrect(answer: string, expected: string) {
-    const e = green(expected);
-    const a = yellow(answer);
-    this.out.write(`\nExpected:\n${e}\n\n\nYour answer:\n${a}\n\n`);
+    this.out.write(Messages.incorrect(expected, answer));
   }
 }
