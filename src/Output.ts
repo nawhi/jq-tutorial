@@ -1,5 +1,5 @@
 import { Problem } from './Problem';
-import { bold, red, white } from 'colors/safe';
+import { bold, green, red, white } from 'colors/safe';
 
 export interface OutputStream {
   write(message: string): void;
@@ -13,6 +13,7 @@ export const HELP_MESSAGE = `Enter your answer or one of the following:
   * data?   show the challenge data set
 
 `;
+export const TICK = green('✔');
 
 export class Output {
   constructor(private out: OutputStream) {}
@@ -50,6 +51,19 @@ export class Output {
           '\' (type "data?" to view)',
         white(bold('Challenge: ')) + problem.prompt + '\n',
       ].join('\n') + '\n'
+    );
+  }
+
+  writeCorrect(answer: string) {
+    this.out.write(
+      `
+
+You said: 
+
+${green(answer)}
+
+ ${TICK} Correct! 
+`
     );
   }
 }

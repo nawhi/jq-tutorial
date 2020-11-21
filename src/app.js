@@ -70,13 +70,7 @@ export default function(
                 return rl.prompt();
               }
               if (checkEquivalent(expected, actual)) {
-                stdout.write(
-                  '\n\nYou said: \n\n' +
-                    actual.green +
-                    '\n\n ✔'.green +
-                    ' Correct! ' +
-                    '\n'
-                );
+                stdout.writeCorrect(actual);
                 rl.close();
                 callback(null);
               } else {

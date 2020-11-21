@@ -1,11 +1,12 @@
 import test from 'ava';
-import { bold, red, white } from 'colors/safe';
+import { bold, green, red, white } from 'colors/safe';
 import { spy } from 'sinon';
 import {
   CLEAR_SCREEN_SEQUENCE,
   DIVIDER,
   HELP_MESSAGE,
   Output,
+  TICK,
 } from '../src/Output';
 
 test('writes a clear-screen sequence', t => {
@@ -76,4 +77,23 @@ test('writes anything', t => {
   output.write('a message');
 
   t.deepEqual(writeSpy.firstCall.firstArg, 'a message');
+});
+
+test('writes correct answer in green', t => {
+  const writeSpy = spy();
+  const output = new Output({ write: writeSpy });
+
+  output.writeCorrect('[]');
+
+  t.deepEqual(
+    writeSpy.firstCall.firstArg,
+    `
+
+You said: 
+
+${green('[]')}
+
+ ${TICK} Correct! 
+`
+  );
 });
