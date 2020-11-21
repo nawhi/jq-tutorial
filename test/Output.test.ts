@@ -4,33 +4,6 @@ import { spy } from 'sinon';
 import { Output } from '../src/Output';
 import { Messages } from '../src/Messages';
 
-test('writes a clear-screen sequence', t => {
-  const writeSpy = spy();
-  const output = new Output({ write: writeSpy });
-
-  output.write(Messages.CLEAR_SCREEN);
-
-  t.deepEqual(writeSpy.firstCall.firstArg, Messages.CLEAR_SCREEN);
-});
-
-test('writes a divider', t => {
-  const writeSpy = spy();
-  const output = new Output({ write: writeSpy });
-
-  output.write(Messages.DIVIDER);
-
-  t.deepEqual(writeSpy.firstCall.firstArg, Messages.DIVIDER);
-});
-
-test('writes help message', t => {
-  const writeSpy = spy();
-  const output = new Output({ write: writeSpy });
-
-  output.write(Messages.HELP);
-
-  t.deepEqual(writeSpy.firstCall.firstArg, Messages.HELP);
-});
-
 test('writes problem description', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
@@ -65,7 +38,7 @@ test('writes error messages in red', t => {
   t.deepEqual(writeSpy.firstCall.firstArg, red('oh no'));
 });
 
-test('writes anything', t => {
+test('writes a message', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
 
