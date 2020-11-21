@@ -38,3 +38,8 @@ test('formats incorrect answer with expected answer', t => {
     `Your answer:\n${yellow(actual)}\n\n`
   );
 });
+
+test('formats completed lesson message', t => {
+  t.deepEqual(Messages.lessonCompleted('my-lesson'),
+    `\n ${Messages.STAR} "my-lesson" completed with a gold star!\n\n`)
+})
