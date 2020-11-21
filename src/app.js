@@ -15,10 +15,10 @@ const BASE_PATH = path.resolve(__dirname, '..');
 
 const PROGRESS_FILE_PATH = path.resolve(BASE_PATH, '_progress.json');
 
-export default function(
+export default function (
   lessonToRun = process.argv[process.argv.length - 1],
   stdout = new Output(process.stdout),
-  stdin = process.stdin,
+  stdin = process.stdin
 ) {
   const progress = new Progress(PROGRESS_FILE_PATH);
 
@@ -59,11 +59,7 @@ export default function(
           async.parallel(
             {
               actual: _.partial(runJq, datafile, answer),
-              expected: _.partial(
-                runJq,
-                datafile,
-                solution
-              ),
+              expected: _.partial(runJq, datafile, solution),
             },
             function (errorMessage, { actual, expected }) {
               if (errorMessage) {
@@ -88,18 +84,8 @@ export default function(
   function runLesson(problem, callback) {
     async.map(
       [
-        path.resolve(
-          BASE_PATH,
-          'problems',
-          problem,
-          'README.md'
-        ),
-        path.resolve(
-          BASE_PATH,
-          'problems',
-          problem,
-          'problem.json'
-        ),
+        path.resolve(BASE_PATH, 'problems', problem, 'README.md'),
+        path.resolve(BASE_PATH, 'problems', problem, 'problem.json'),
       ],
       fs.readFile,
       function (err, results) {
@@ -127,30 +113,19 @@ export default function(
         problems = JSON.parse(result);
 
       const success = function (lesson) {
-        stdout.write(
-          [
-            '\n \u2605'.yellow +
-              ' "' +
-              lesson +
-              '" completed with a gold star!',
-          ].join('\n') + '\n\n'
-        );
+        stdout.write(Messages.lessonCompleted(lesson));
         progress.save(lesson);
         resolve();
       };
 
       const usage = function () {
         stdout.write(
-          [
-            'Run jq-tutorial with one of the following arguments:',
-          ]
+          ['Run jq-tutorial with one of the following arguments:']
             .concat(
               problems.map(
                 p =>
                   ' ' +
-                  (progress.isCompleted(p)
-                    ? '✔'.green
-                    : '*') +
+                  (progress.isCompleted(p) ? '✔'.green : '*') +
                   ' ' +
                   p
               )
