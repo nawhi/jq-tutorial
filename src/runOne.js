@@ -1,6 +1,6 @@
-import path from 'path';
-import fs from 'fs';
-import readline from 'readline';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as readline from 'readline';
 import * as async from 'async';
 import * as _ from 'lodash';
 import { runJq } from './runJq';
