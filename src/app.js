@@ -74,11 +74,7 @@ export default function(
                 rl.close();
                 callback(null);
               } else {
-                stdout.write('\nExpected:\n');
-                stdout.write(expected.green + '\n');
-
-                stdout.write('\nYour answer:\n');
-                stdout.write(actual.yellow + '\n');
+                stdout.writeIncorrect(actual, expected);
 
                 rl.prompt();
               }
