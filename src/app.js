@@ -66,8 +66,7 @@ export default function(
             },
             function (errorMessage, { actual, expected }) {
               if (errorMessage) {
-                console.log(errorMessage);
-                stdout.write(errorMessage.red);
+                stdout.writeError(errorMessage);
                 return rl.prompt();
               }
               if (checkEquivalent(expected, actual)) {
