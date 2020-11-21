@@ -106,6 +106,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@types/async@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@types/async/-/async-3.2.4.tgz#706101f4d1f66c1a8dcbcedb05528ad73b08230e"
+  integrity sha512-2c14HTaCn6tlb7bnqJGeH5JJGHZmyrkDD3EYe1NYBYjuY4+2EmMg8pjau2HvVz8+ANmO+DieV95H8PlzbK383g==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
