@@ -94,7 +94,7 @@ export default function(
     });
   }
 
-  function show(problem, callback) {
+  function runLesson(problem, callback) {
     async.map(
       [
         path.resolve(
@@ -171,7 +171,7 @@ export default function(
       if (problems.indexOf(lesson) === -1) {
         usage();
       } else {
-        show(lesson, function (err) {
+        runLesson(lesson, function (err) {
           if (err) throw err;
           success(lesson);
         });
