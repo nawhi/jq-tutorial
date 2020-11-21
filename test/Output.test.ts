@@ -1,5 +1,5 @@
 import test from 'ava';
-import { bold, white } from 'colors/safe';
+import { bold, red, white } from 'colors/safe';
 import { spy } from 'sinon';
 import {
   CLEAR_SCREEN_SEQUENCE,
@@ -60,6 +60,14 @@ test('writes anything with an extra newline', t => {
 
   t.deepEqual(writeSpy.firstCall.firstArg, 'a message\n');
 });
+
+test('writes error messages in red', t => {
+  const writeSpy = spy();
+  const output = new Output({ write: writeSpy });
+  output.writeError(new Error("oh no"));
+
+  t.deepEqual(writeSpy.firstCall.firstArg, red('oh no'));
+})
 
 test('writes anything', t => {
   const writeSpy = spy();

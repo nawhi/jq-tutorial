@@ -1,6 +1,5 @@
 import { Problem } from './Problem';
-import * as colors from 'colors/safe';
-import { bold, white } from 'colors/safe';
+import { bold, red, white } from 'colors/safe';
 
 export interface OutputStream {
   write(message: string): void;
@@ -8,8 +7,7 @@ export interface OutputStream {
 
 export const CLEAR_SCREEN_SEQUENCE = '\u001B[2J\u001B[0;0f';
 export const DIVIDER = '\n\n--------------------------------\n\n';
-export const HELP_MESSAGE =
-  `Enter your answer or one of the following:
+export const HELP_MESSAGE = `Enter your answer or one of the following:
   * help?   show this help message
   * prompt? show the original challenge prompt
   * data?   show the challenge data set
@@ -40,12 +38,18 @@ export class Output {
   }
 
   writeProblem(problem: Problem) {
-    this.out.write([
-      white(bold('Given: ')) +
-      "   '" +
-      problem.dataset +
-      '\' (type "data?" to view)',
-      white(bold('Challenge: ')) + problem.prompt + '\n',
-    ].join('\n') + '\n');
+    this.out.write(
+      [
+        white(bold('Given: ')) +
+          "   '" +
+          problem.dataset +
+          '\' (type "data?" to view)',
+        white(bold('Challenge: ')) + problem.prompt + '\n',
+      ].join('\n') + '\n'
+    );
+  }
+
+  writeError(error: Error) {
+    this.out.write(red(error.message));
   }
 }
