@@ -64,10 +64,10 @@ test('writes anything with an extra newline', t => {
 test('writes error messages in red', t => {
   const writeSpy = spy();
   const output = new Output({ write: writeSpy });
-  output.writeError(new Error("oh no"));
+  output.writeError(new Error('oh no'));
 
   t.deepEqual(writeSpy.firstCall.firstArg, red('oh no'));
-})
+});
 
 test('writes anything', t => {
   const writeSpy = spy();
