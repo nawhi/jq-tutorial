@@ -33,6 +33,10 @@ export class Output {
     this.out.write(HELP_MESSAGE);
   }
 
+  writeError(error: string) {
+    this.out.write(red(error));
+  }
+
   writeLine(message: string) {
     this.out.write(message + '\n');
   }
@@ -47,9 +51,5 @@ export class Output {
         white(bold('Challenge: ')) + problem.prompt + '\n',
       ].join('\n') + '\n'
     );
-  }
-
-  writeError(error: Error) {
-    this.out.write(red(error.message));
   }
 }
