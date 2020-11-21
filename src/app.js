@@ -96,9 +96,7 @@ export default function (
 
         // Print README
         stdout.write(results[0]);
-        stdout.write(
-          'type "data?" to see dataset or "help?" for more options'
-        );
+        stdout.write(Messages.INSTRUCTIONS);
 
         // do problem
         async.mapSeries(problems, runOne, callback);

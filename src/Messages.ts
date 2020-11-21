@@ -7,9 +7,10 @@ export class Messages {
   static HELP = `Enter your answer or one of the following:
   * help?   show this help message
   * prompt? show the original challenge prompt
-  * data?   show the challenge data set
+  * data?   show the challenge data set\n\n`;
 
-`;
+  static INSTRUCTIONS =
+    'type "data?" to see dataset or "help?" for more options';
 
   static TICK = green('✔');
   static STAR = yellow('★');
